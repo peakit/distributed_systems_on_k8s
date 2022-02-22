@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-query
+  labels:
+    app.kubernetes.io/name: jaeger-query
+    owner: platformsredev
+    infra.arc/repo.managed: kubernetes
+spec:
+  type: NodePort
+  ports:
+  - name: jaeger # Default endpoint for OpenTelemetry receiver.
+    port: 16686
+    protocol: TCP
+    targetPort: 16686
+  selector:
+    app.kubernetes.io/name: jaeger-query

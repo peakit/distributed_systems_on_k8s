@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: my-redis
+    labels:
+        type: cache
+spec:
+    selector:
+        matchLabels:
+            type: cache
+    template:
+        metadata:
+            labels:
+                type: cache
+        spec:
+            containers:
+            - name: redis
+              image: redis:6.0
+            topologySpreadConstraints:
+            - maxSkew: 2
+              topologyKey: node
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                    type: cache
+            affinity:
+                podAffinity:
+                    requiredDuringSchedulingIgnoredDuringExecution:
+                    - labelSelector:
+                        matchExpressions:
+                        - key: type
+                          operator: In
+                          values: 
+                          - frontend
+                      topologyKey: node
+                podAntiAffinity:
+                    requiredDuringSchedulingIgnoredDuringExecution:
+                    - labelSelector:
+                        matchExpressions:
+                        - key: type
+                          operator: In
+                          values:
+                          - cache
+                      topologyKey: node
