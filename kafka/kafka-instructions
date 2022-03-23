@@ -1,0 +1,6 @@
+
+1. Download kompose using https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/
+2. https://github.com/confluentinc/cp-all-in-one/blob/6.2.0-post/cp-all-in-one/docker-compose.yml
+3. ./kompose convert -f kf-docker-compose.yaml
+4. kubectl apply -f broker-service.yaml,connect-service.yaml,control-center-service.yaml,ksqldb-server-service.yaml,rest-proxy-service.yaml,schema-registry-service.yaml,zookeeper-service.yaml,broker-deployment.yaml,connect-deployment.yaml,control-center-deployment.yaml,ksql-datagen-deployment.yaml,ksqldb-cli-deployment.yaml,ksqldb-server-deployment.yaml,rest-proxy-deployment.yaml,schema-registry-deployment.yaml,zookeeper-deployment.yaml
+ 
